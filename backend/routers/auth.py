@@ -73,26 +73,37 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db)
 ):
-    result = await db.execute(select(User).where(User.email == form_data.username))
-    user = result.scalar_one_or_none()
-    if not user or not verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
-            headers={"WWW-Authenticate": "Bearer"},
+    try:
+        result = await db.execute(select(User).where(User.email == form_data.username))
+        user = result.scalar_one_or_none()
+        if not user or not verify_password(form_data.password, user.hashed_password):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect email or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        if not user.is_active:
+            raise HTTPException(status_code=400, detail="Account is inactive")
+
+        await db.execute(
+            update(User).where(User.id == user.id).values(last_login=datetime.utcnow())
         )
-    if not user.is_active:
-        raise HTTPException(status_code=400, detail="Account is inactive")
 
-    await db.execute(
-        update(User).where(User.id == user.id).values(last_login=datetime.utcnow())
-    )
+        token = create_access_token(
+            data={"sub": str(user.id), "role": user.role.value},
+            expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        )
+        return TokenResponse(access_token=token, user=user)
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Login Error [{type(e).__name__}]: {str(e)}"
+        )
 
-    token = create_access_token(
-        data={"sub": str(user.id), "role": user.role.value},
-        expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    )
-    return TokenResponse(access_token=token, user=user)
 
 
 @router.get("/me", response_model=UserResponse)
