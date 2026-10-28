@@ -1,0 +1,501 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif
+  }
+  
+  :root {
+    --background: #f8fafc;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
+    --primary: #1e3a8a;
+    --primary-foreground: #ffffff;
+    --secondary: #f1f5f9;
+    --secondary-foreground: #0f172a;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #94a3b8;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    
+    --sidebar-gradient-start: #ffffff;
+    --sidebar-gradient-end: #f8fafc;
+    --sidebar-text: #0f172a;
+    --sidebar-text-inactive: #475569;
+    --sidebar-desc-color: #64748b;
+    --sidebar-border: #e2e8f0;
+    --sidebar-card-bg: #f1f5f9;
+    --sidebar-active-bg: #e2e8f0;
+    --sidebar-active-text: #1e3a8a;
+    --sidebar-active-border: #1e3a8a;
+    --sidebar-hover-bg: #f1f5f9;
+    --sidebar-locked-color: #94a3b8;
+    
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --header-border: rgba(0, 0, 0, 0.08);
+    --header-text: #0f172a;
+    
+    --table-header: #f1f5f9;
+    --table-border: #e2e8f0;
+
+    /* Custom App Variables */
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 72px;
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --radius-md: 0.5rem;
+    --danger: #EF4444;
+    --green-400: #22c55e;
+    --green-700: #15803D;
+    --blue-700: #1D4ED8;
+    --gray-200: #334155;
+    --gray-400: #64748b;
+    --gray-500: #94a3b8;
+  }
+  
+  .dark {
+    --background: #090d16;
+    --foreground: #f8fafc;
+    --card: rgba(255, 255, 255, 0.03);
+    --card-foreground: #f8fafc;
+    --popover: #0f172a;
+    --popover-foreground: #f8fafc;
+    --primary: #38bdf8;
+    --primary-foreground: #090d16;
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: rgba(255, 255, 255, 0.08);
+    --input: rgba(255, 255, 255, 0.08);
+    --ring: #38bdf8;
+    
+    --sidebar-gradient-start: #0f172a;
+    --sidebar-gradient-end: #030712;
+    --sidebar-text: #ffffff;
+    --sidebar-text-inactive: rgba(255, 255, 255, 0.60);
+    --sidebar-desc-color: rgba(255, 255, 255, 0.35);
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --sidebar-card-bg: rgba(255, 255, 255, 0.05);
+    --sidebar-active-bg: rgba(255, 255, 255, 0.15);
+    --sidebar-active-text: #ffffff;
+    --sidebar-active-border: rgba(255, 255, 255, 0.75);
+    --sidebar-hover-bg: rgba(255, 255, 255, 0.07);
+    --sidebar-locked-color: rgba(255, 255, 255, 0.30);
+    
+    --header-bg: rgba(9, 13, 22, 0.85);
+    --header-border: rgba(255, 255, 255, 0.07);
+    --header-text: #ffffff;
+    
+    --table-header: rgba(255, 255, 255, 0.02);
+    --table-border: rgba(255, 255, 255, 0.04);
+
+    /* Custom App Variables */
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 72px;
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --radius-md: 0.5rem;
+    --danger: #EF4444;
+    --green-400: #4ADE80;
+    --green-700: #15803D;
+    --blue-700: #1D4ED8;
+    --gray-200: #E5E7EB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+  }
+  
+  * {
+    border-color: var(--border);
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', 'Noto Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-600 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-500; }
+
+  .app-layout { @apply flex min-h-screen; }
+  
+  .main-content {
+    @apply flex-1 flex flex-col min-h-screen transition-all duration-200 ml-[260px];
+    background-color: var(--background);
+  }
+  .main-content.sidebar-collapsed { @apply ml-[72px]; }
+
+  @media (max-width: 1024px) {
+    .main-content { @apply ml-[72px]; }
+  }
+  @media (max-width: 768px) {
+    .main-content { @apply ml-0; }
+  }
+
+  .page-body {
+    @apply flex-1 p-6 overflow-y-auto;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+  
+  @media (max-width: 768px) {
+    .page-body { @apply p-4; }
+  }
+
+  /* KPI Card Custom logic (Soft UI + hover elevation) */
+  .kpi-card {
+    background-color: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    box-shadow: 0 4px 18px 0 rgba(15, 23, 42, 0.02), 0 1px 3px 0 rgba(15, 23, 42, 0.01) !important;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  
+  .kpi-card:hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04) !important;
+    border-color: var(--primary) !important;
+  }
+  
+  .dark .kpi-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .kpi-card::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl;
+  }
+  .kpi-card.green::before { @apply bg-gradient-to-r from-green-600 to-green-400; }
+  .kpi-card.blue::before  { @apply bg-gradient-to-r from-blue-600 to-blue-400; }
+  .kpi-card.orange::before{ @apply bg-gradient-to-r from-orange-500 to-amber-400; }
+  .kpi-card.red::before   { @apply bg-gradient-to-r from-red-500 to-red-400; }
+
+  /* KPI Icons styled with neumorphism for small controls */
+  .kpi-icon {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center mb-3.5;
+    background-color: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.02), -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+  }
+  .dark .kpi-icon {
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.02) !important;
+  }
+  .kpi-icon.green { @apply bg-green-500/20 text-green-500; }
+  .kpi-icon.blue  { @apply bg-blue-500/20 text-blue-500; }
+  .kpi-icon.orange{ @apply bg-orange-500/20 text-orange-500; }
+  .kpi-icon.red   { @apply bg-red-500/20 text-red-500; }
+
+  .kpi-value {
+    @apply text-3xl font-extrabold leading-none mb-1 tracking-tight;
+  }
+  .kpi-label {
+    @apply text-[0.78rem] font-medium uppercase tracking-widest;
+    color: var(--muted-foreground);
+  }
+  .kpi-trend { @apply text-[0.78rem] mt-2 flex items-center gap-1; }
+  .kpi-trend.up   { @apply text-green-500; }
+  .kpi-trend.down { @apply text-red-500; }
+
+  /* Status Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] font-semibold tracking-wide;
+  }
+  .badge-active   { @apply bg-green-500/15 text-green-500 border border-green-500/30; }
+  .badge-delayed  { @apply bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30; }
+  .badge-offline  { @apply bg-red-500/15 text-red-500 border border-red-500/30; }
+  .badge-covered  { @apply bg-green-500/15 text-green-500 border border-green-500/30; }
+  .badge-missed   { @apply bg-red-500/15 text-red-500 border border-red-500/30; }
+  .badge-progress { @apply bg-blue-500/15 text-blue-500 border border-blue-500/30; }
+  .badge-raised   { @apply bg-orange-500/15 text-orange-400 border border-orange-500/30; }
+  .badge-resolved { @apply bg-green-500/15 text-green-500 border border-green-500/30; }
+  .badge-present  { @apply bg-green-500/15 text-green-500 border border-green-500/30; }
+  .badge-absent   { @apply bg-red-500/15 text-red-500 border border-red-500/30; }
+  .badge-leave    { @apply bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30; }
+  .badge-dot::before { content: ''; @apply w-1.5 h-1.5 rounded-full bg-current inline-block; }
+
+  /* Pulse animation */
+  .pulse-dot { @apply relative inline-block; }
+  .pulse-dot::after {
+    content: '';
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full bg-current opacity-40 animate-ping;
+  }
+
+  /* AI Card */
+  .ai-insight-card {
+    background-color: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 1rem;
+    padding: 1.25rem;
+  }
+  .ai-insight-card .ai-badge {
+    @apply inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 to-green-600 text-white px-3 py-1 rounded-full text-[0.72rem] font-bold tracking-widest mb-3;
+  }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    @apply bg-gray-200 dark:bg-white/10 rounded-full h-2 overflow-hidden;
+  }
+  .progress-bar-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-green-600 to-green-400 transition-all duration-[600ms] ease-out;
+  }
+
+  /* Alert boxes */
+  .alert {
+    @apply rounded-md p-3 flex items-start gap-2.5 text-sm;
+  }
+  .alert-warning { @apply bg-amber-500/10 border border-amber-500/25 text-amber-700 dark:text-amber-300; }
+  .alert-success { @apply bg-green-500/10 border border-green-500/25 text-green-600 dark:text-green-400; }
+  .alert-info    { @apply bg-blue-500/10 border border-blue-500/25 text-blue-600 dark:text-blue-400; }
+  .alert-danger  { @apply bg-red-500/10 border border-red-500/25 text-red-600 dark:text-red-400; }
+
+  /* MapCN styling */
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! rounded-none!;
+  }
+  .maplibregl-popup-tip {
+    @apply hidden!;
+  }
+
+  /* Table */
+  .data-table-wrapper { @apply overflow-x-auto rounded-lg; }
+  .data-table { @apply w-full border-collapse text-sm; }
+  .data-table th {
+    @apply px-4 py-3 text-left font-semibold text-xs uppercase tracking-widest border-b whitespace-nowrap;
+    background-color: var(--table-header);
+    color: var(--muted-foreground);
+    border-color: var(--border);
+  }
+  .data-table td {
+    @apply px-4 py-3.5 border-b align-middle;
+    color: var(--foreground);
+    border-color: var(--table-border);
+  }
+  .data-table tr:last-child td { @apply border-none; }
+  .data-table tr:hover td { background-color: rgba(0, 0, 0, 0.02); }
+  .dark .data-table tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
+}
+
+/* ─── Premium UI Animations & Themes Overrides ───────────────────────────── */
+
+/* Page transition slide-fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-body > div {
+  animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulse glow effects */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+@keyframes pulseGlowRed {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.ws-live-pulse-green {
+  animation: pulseGlow 2s infinite;
+}
+
+.ws-live-pulse-red {
+  animation: pulseGlowRed 2s infinite;
+}
+
+/* Global Content redirection to CSS Variables */
+.main-content h2,
+.main-content h3,
+.main-content h4 {
+  color: var(--foreground) !important;
+}
+
+.main-content p {
+  color: var(--muted-foreground) !important;
+}
+
+/* Redirection of helper classes, excluding elements that should remain bright (like buttons, badges, alerts, and KPI values) */
+.main-content .text-white:not(button):not(button *):not(.badge):not(.badge *):not(.alert):not(.alert *):not(.kpi-value):not(.kpi-card *):not(.recharts-tooltip-item *) {
+  color: var(--foreground) !important;
+}
+
+.main-content .text-gray-100:not(button):not(button *):not(.badge):not(.badge *):not(.alert):not(.alert *):not(.kpi-value):not(.kpi-card *):not(.recharts-tooltip-item *) {
+  color: var(--foreground) !important;
+}
+
+.main-content .text-gray-200:not(button):not(button *):not(.badge):not(.badge *):not(.alert):not(.alert *):not(.kpi-value):not(.kpi-card *):not(.recharts-tooltip-item *) {
+  color: var(--foreground) !important;
+}
+
+.main-content .text-gray-300:not(button):not(button *):not(.badge):not(.badge *):not(.alert):not(.alert *):not(.kpi-value):not(.kpi-card *):not(.recharts-tooltip-item *) {
+  color: var(--foreground) !important;
+}
+
+.main-content .text-gray-400:not(button):not(button *):not(.badge):not(.badge *):not(.alert):not(.alert *):not(.kpi-value):not(.kpi-card *):not(.recharts-tooltip-item *) {
+  color: var(--muted-foreground) !important;
+}
+
+.main-content .text-gray-500 {
+  color: var(--muted-foreground) !important;
+}
+
+/* Table overrides */
+table th, .data-table th {
+  background-color: var(--table-header) !important;
+  color: var(--muted-foreground) !important;
+  border-color: var(--border) !important;
+}
+
+table td, .data-table td {
+  color: var(--foreground) !important;
+  border-color: var(--table-border) !important;
+}
+
+table tr:hover td, .data-table tr:hover td {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+.dark table tr:hover td, .dark .data-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.015) !important;
+}
+
+/* General container redirects */
+.bg-white\/\[0\.04\],
+.bg-white\/5,
+.bg-white\/10 {
+  background-color: var(--card) !important;
+  border-color: var(--border) !important;
+}
+
+.bg-white\/\[0\.04\]:hover,
+.bg-white\/5:hover,
+.bg-white\/10:hover {
+  border-color: var(--border) !important;
+}
+
+/* Tooltips */
+.recharts-default-tooltip {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+  border-radius: 8px !important;
+}
+
+/* Custom Input, Select, and Textarea theme overrides, excluding login glass inputs */
+select:not(.glass-input), input:not(.glass-input), textarea:not(.glass-input) {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+
+select option {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* ─── Premium UI Styles (Soft UI, Glassmorphism, Neumorphism) ──────────────── */
+.soft-ui-card {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 18px 0 rgba(15, 23, 42, 0.02), 0 1px 3px 0 rgba(15, 23, 42, 0.01) !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.soft-ui-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px 0 rgba(15, 23, 42, 0.05), 0 2px 6px 0 rgba(15, 23, 42, 0.03) !important;
+  border-color: var(--primary) !important;
+}
+.dark .soft-ui-card {
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25), 0 1px 3px 0 rgba(0, 0, 0, 0.15) !important;
+}
+.dark .soft-ui-card:hover {
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.35), 0 2px 6px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.soft-glass {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(10px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(120%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08) !important;
+}
+.dark .soft-glass {
+  background-color: rgba(9, 13, 22, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+.neumorphic-control {
+  background-color: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03), -2px -2px 5px rgba(255, 255, 255, 0.8) !important;
+  transition: all var(--transition-fast) !important;
+}
+.dark .neumorphic-control {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.03) !important;
+}
+.neumorphic-control:active, .neumorphic-control.active {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.05), inset -1px -1px 3px rgba(255, 255, 255, 0.6) !important;
+}
+.dark .neumorphic-control:active, .dark .neumorphic-control.active {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.4), inset -1px -1px 3px rgba(255, 255, 255, 0.03) !important;
+}
+
+.neumorphic-icon-container {
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.02), -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+}
+.dark .neumorphic-icon-container {
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.02) !important;
+}
