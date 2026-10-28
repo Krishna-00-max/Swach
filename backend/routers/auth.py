@@ -85,9 +85,8 @@ async def login(
         if not user.is_active:
             raise HTTPException(status_code=400, detail="Account is inactive")
 
-        await db.execute(
-            update(User).where(User.id == user.id).values(last_login=datetime.utcnow())
-        )
+        user.last_login = datetime.utcnow()
+        await db.flush()
 
         token = create_access_token(
             data={"sub": str(user.id), "role": user.role.value},
